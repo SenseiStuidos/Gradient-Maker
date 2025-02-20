@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Generator</title>
+<link rel="icon" href="logo.png">
+    <style>
+        /* Discord-like dark theme */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #36393f; /* Discord's background color */
+            color: #ffffff; /* White text */
+            position: relative; /* For logo positioning */
+        }
+
+        /* Logo styling */
+        .logo {
+            position: absolute; /* Position the logo absolutely */
+            top: 20px; /* Distance from the top */
+            left: 20px; /* Distance from the left */
+            border-radius:40px;
+            width: 80px; /* Default width */
+            height: auto; /* Maintain aspect ratio */
+            animation: riseUp 0.5s ease-out; /* Rise-up animation */
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                width: 60px; /* Smaller logo for mobile */
+            }
+        }
+
+        @keyframes riseUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            text-align: center;
+            background-color: #2f3136; /* Discord's secondary background color */
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            animation: riseUp 0.5s ease-out;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+            animation: riseUp 0.5s ease-out 0.2s backwards;
+        }
+
+        .color-pickers {
+            margin-bottom: 20px;
+            animation: riseUp 0.5s ease-out 0.4s backwards;
+        }
+
+        label {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #b9bbbe; /* Discord's muted text color */
+        }
+
+        input[type="color"] {
+            width: 50px;
+            height: 30px;
+            border: 2px solid #202225; /* Discord's input border color */
+            border-radius: 4px;
+            background-color: #202225; /* Discord's input background color */
+            cursor: pointer;
+        }
+
+        #gradient-display {
+            width: 100%;
+            height: 150px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 2px solid #202225; /* Discord's border color */
+            background-color: #202225; /* Default background */
+            animation: riseUp 0.5s ease-out 0.6s backwards;
+        }
+
+        #color-codes {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #b9bbbe; /* Discord's muted text color */
+            animation: riseUp 0.5s ease-out 0.8s backwards;
+        }
+
+        #shades-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+            animation: riseUp 0.5s ease-out 1s backwards;
+        }
+
+        .shade {
+            width: 100%;
+            height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s ease;
+        }
+
+        .shade:hover {
+            transform: scale(1.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #5865f2; /* Discord's blurple color */
+            color: #ffffff;
+            transition: background-color 0.2s ease;
+            animation: riseUp 0.5s ease-out 1.2s backwards;
+        }
+
+        button:hover {
+            background-color: #4752c4; /* Slightly darker blurple on hover */
+        }
+
+        button:active {
+            background-color: #3c45a5; /* Even darker blurple on click */
+        }
+        .gradient-button {
+            display: inline-block; /* Make it behave like a link */
+            padding: 12px 24px; /* Adjust padding as needed */
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none; /* Remove underline from link */
+            color: white; /* Text color */
+            border-radius: 8px; /* Rounded corners */
+            background: linear-gradient(to right, #e74c3c, #3498db); /* Initial gradient */
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease; /* Smooth transitions */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        .gradient-button:hover {
+            background: linear-gradient(to right, #c0392b, #2980b9); /* Darker gradient on hover */
+            transform: translateY(-2px); /* Move up slightly on hover */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Increased shadow on hover */
+        }
+
+        .gradient-button:active {
+            transform: translateY(0); /* Reset position on click */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Smaller shadow on click */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .gradient-button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .gradient-button {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+        }
+        .logo {
+            position: absolute; /* Position the logo absolutely */
+            top: 20px; /* Distance from the top */
+            left: 20px; /* Distance from the left */
+            border-radius:40px;
+            width: 80px; /* Default width */
+            height: auto; /* Maintain aspect ratio */
+            animation: riseUp 0.5s ease-out; /* Rise-up animation */
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                width: 60px; /* Smaller logo for mobile */
+            }
+        }
+        @media (max-width: 417px) {
+            .logo {
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <img src="logo.png" alt="Logo" class="logo">
+
+    <div class="container">
+        <h1>Gradient Generator</h1>
+        <div class="color-pickers">
+            <label for="color1">Color 1:</label>
+            <input type="color" id="color1" value="#ff0000">
+            
+            <label for="color2">Color 2:</label>
+            <input type="color" id="color2" value="#0000ff">
+        </div>
+        <button id="create-gradient">Create Gradient</button>
+        <div id="gradient-display"></div>
+        <div id="color-codes"></div>
+        <div id="shades-container"></div><br>
+        <a href="https://senseistuidos.github.io/Sensei-s-Color-Library/" class="gradient-button">View Library</a>
+    </div>
+    <script>
+        // Function to generate shades from dark to light
+        function generateShades(color, count) {
+            const shades = [];
+            const baseColor = hexToRgb(color);
+            for (let i = 0; i < count; i++) {
+                const factor = i / (count - 1);
+                const shade = {
+                    r: Math.round(baseColor.r * factor),
+                    g: Math.round(baseColor.g * factor),
+                    b: Math.round(baseColor.b * factor),
+                };
+                shades.push(rgbToHex(shade.r, shade.g, shade.b));
+            }
+            return shades;
+        }
+
+        // Convert hex to RGB
+        function hexToRgb(hex) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return { r, g, b };
+        }
+
+        // Convert RGB to hex
+        function rgbToHex(r, g, b) {
+            return `#${((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1)}`;
+        }
+
+        // Copy color code to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Copied: ${text}`);
+            });
+        }
+
+        // JavaScript to generate the gradient, shades, and display hex color codes
+        document.getElementById('create-gradient').addEventListener('click', function() {
+            const color1 = document.getElementById('color1').value;
+            const color2 = document.getElementById('color2').value;
+            const gradientDisplay = document.getElementById('gradient-display');
+            const colorCodes = document.getElementById('color-codes');
+            const shadesContainer = document.getElementById('shades-container');
+            
+            // Apply the gradient to the display area
+            gradientDisplay.style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+            
+            // Display the hex color codes
+            colorCodes.innerHTML = `
+                <strong>Color 1:</strong> ${color1} <br>
+                <strong>Color 2:</strong> ${color2}
+            `;
+
+            // Generate and display shades
+            const shades1 = generateShades(color1, 5);
+            const shades2 = generateShades(color2, 5);
+            shadesContainer.innerHTML = shades1.map((shade, index) => `
+                <div class="shade" style="background: ${shade};" onclick="copyToClipboard('${shade}')">${shade}</div>
+            `).join('') + shades2.map((shade, index) => `
+                <div class="shade" style="background: ${shade};" onclick="copyToClipboard('${shade}')">${shade}</div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>
